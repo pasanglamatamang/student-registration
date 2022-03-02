@@ -18,4 +18,8 @@ public interface StudentService {
 
 
     Student findStudentByIdAndFirstName(Long id, String firstName);
+
+    String updateStudent(Long id, Student student);
+
+    String deleteStudent(Long id);
 }

@@ -5,12 +5,11 @@ import com.database.studentregistration.students.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class StudentServiceImpl implements StudentService{
+public class StudentServiceImpl implements StudentService {
 
     @Autowired
     StudentRepository studentRepository;
@@ -29,19 +28,16 @@ public class StudentServiceImpl implements StudentService{
     public Student findStudentByIdAndFirstName(Long id, String firstName) {
         Optional<Student> findStudent = studentRepository.findByIdAndFirstName(id, firstName);
 
-            if(findStudent.isPresent()){
-                Student student = findStudent.get();
-                System.out.println("Student found: " + student);
-                return student;
-            }else {
-                System.out.println("student not found");
-            }
-
-            return null;
+        if (findStudent.isPresent()) {
+            Student student = findStudent.get();
+            System.out.println("Student found: " + student);
+            return student;
+        } else {
+            System.out.println("student not found");
         }
 
-
-
+        return null;
+    }
 
 
     @Override
@@ -49,9 +45,22 @@ public class StudentServiceImpl implements StudentService{
         return studentRepository.save(student);
     }
 
+    @Override
+    public String updateStudent(Long id, Student student) {
+        if(studentRepository.findById(id).isPresent()){
+            studentRepository.save(student);
+        }
 
+        return null;
+    }
 
-
+    @Override
+    public String deleteStudent(Long id) {
+        if(studentRepository.findById(id).isPresent()){
+            studentRepository.deleteById(id);
+        }
+        return null;
+    }
 
 
 }

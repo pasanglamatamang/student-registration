@@ -21,24 +21,24 @@ public class StudentController {
 
     //gets all students
     @GetMapping("/students")
-    public List<Student> getAllStudents(){
+    public List<Student> getAllStudents() {
         return studentService.findAll();
     }
 
     //gets specific student by id
     @GetMapping("/students/{id}")
-    public Optional<Student> getStudentById(@PathVariable Long id){
+    public Optional<Student> getStudentById(@PathVariable Long id) {
         return studentService.findStudentById(id);
     }
 
     //gets specific students by id and first name
     @GetMapping("/students/{id}/{firstName}")
-    public Student getStudentByIdAndFirstName(@PathVariable("id") Long id, @PathVariable("firstName") String firstName){
-       return studentService.findStudentByIdAndFirstName(id, firstName);
+    public Student getStudentByIdAndFirstName(@PathVariable("id") Long id, @PathVariable("firstName") String firstName) {
+        return studentService.findStudentByIdAndFirstName(id, firstName);
     }
 
     @PostMapping("/addStudent")
-    public RequestResponse createStudent(@RequestBody Student student){
+    public RequestResponse createStudent(@RequestBody Student student) {
         Student s = studentService.addStudent(student);
 
         RequestResponse requestResponse = new RequestResponse();
@@ -48,10 +48,20 @@ public class StudentController {
 
         return requestResponse;
 
-        }
+    }
 
+    @PutMapping("/updateStudent/{id}")
+    public String updateStudent(@PathVariable Long id, @RequestBody Student student){
+        return studentService.updateStudent(id, student);
 
     }
+
+    @DeleteMapping("/deleteStudent/{id}")
+    public String deleteStudent(@PathVariable Long id){
+        return studentService.deleteStudent(id);
+    }
+
+}
 
 
 
