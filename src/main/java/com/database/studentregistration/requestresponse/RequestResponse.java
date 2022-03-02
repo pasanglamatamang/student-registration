@@ -1,9 +1,20 @@
 package com.database.studentregistration.requestresponse;
 
+import com.database.studentregistration.students.Student;
+
 public class RequestResponse {
 
     private String message;
     private int status;
+    private Student student;
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
 
     public String getMessage() {
         return message;
@@ -26,6 +37,7 @@ public class RequestResponse {
         return "RequestResponse{" +
                 "message='" + message + '\'' +
                 ", status=" + status +
+                ", student=" + student +
                 '}';
     }
 }
