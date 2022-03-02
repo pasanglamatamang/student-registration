@@ -42,8 +42,9 @@ public class StudentController {
 
     // get student by email
     @GetMapping("/student/{email}")
-    public Optional<Student> getByEmail(@PathVariable String email){
-        return studentService.findStudentByEmail(email);
+    public ResponseEntity<Optional<Student>> getByEmail(@PathVariable String email){
+        Optional<Student> student = studentService.findStudentByEmail(email);
+        return ResponseEntity.ok().body(student);
     }
 
     //add a student
