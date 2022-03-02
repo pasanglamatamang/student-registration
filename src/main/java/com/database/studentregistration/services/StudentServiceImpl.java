@@ -62,5 +62,11 @@ public class StudentServiceImpl implements StudentService {
         return null;
     }
 
+    @Override
+    public Student addListOfStudents(List<Student> addStudents) {
+        studentRepository.saveAll(addStudents);
+        return null;
+    }
+
 
 }
