@@ -25,4 +25,6 @@ public interface StudentService {
 
 
     Student addListOfStudents(List<Student> addStudents);
+
+    Optional<Student> findStudentByEmail(String email);
 }

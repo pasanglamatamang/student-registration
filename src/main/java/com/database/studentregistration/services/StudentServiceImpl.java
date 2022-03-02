@@ -68,5 +68,14 @@ public class StudentServiceImpl implements StudentService {
         return null;
     }
 
+    @Override
+    public Optional<Student> findStudentByEmail(String email) {
+        Optional <Student> student = studentRepository.findStudentByEmail(email);
+        if(student.isPresent()){
+            return student;
+        }
+        return null;
+    }
+
 
 }

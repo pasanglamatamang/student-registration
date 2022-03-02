@@ -40,6 +40,12 @@ public class StudentController {
         return ResponseEntity.ok().body(student);
     }
 
+    // get student by email
+    @GetMapping("/student/{email}")
+    public Student getByEmail(@PathVariable String email){
+        return studentService.findStudentByEmail(email);
+    }
+
     //add a student
     @PostMapping("/addStudent")
     public ResponseEntity<Student> createStudent(@RequestBody Student student) {
