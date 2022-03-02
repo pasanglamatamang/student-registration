@@ -42,7 +42,7 @@ public class StudentController {
 
     // get student by email
     @GetMapping("/student/{email}")
-    public Student getByEmail(@PathVariable String email){
+    public Optional<Student> getByEmail(@PathVariable String email){
         return studentService.findStudentByEmail(email);
     }
 
