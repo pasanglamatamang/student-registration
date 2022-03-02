@@ -1,10 +1,10 @@
 package com.database.studentregistration.controller;
 
 
-import com.database.studentregistration.requestresponse.RequestResponse;
 import com.database.studentregistration.services.StudentService;
 import com.database.studentregistration.students.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,44 +21,42 @@ public class StudentController {
 
     //gets all students
     @GetMapping("/students")
-    public List<Student> getAllStudents() {
-        return studentService.findAll();
+    public ResponseEntity<List<Student>> getAllStudents() {
+        List<Student> allStudents = studentService.findAll();
+        return ResponseEntity.ok().body(allStudents);
     }
 
     //gets specific student by id
     @GetMapping("/students/{id}")
-    public Optional<Student> getStudentById(@PathVariable Long id) {
-        return studentService.findStudentById(id);
+    public ResponseEntity<Optional<Student>> getStudentById(@PathVariable Long id) {
+        Optional<Student> student = studentService.findStudentById(id);
+        return ResponseEntity.ok().body(student);
     }
 
     //gets specific students by id and first name
     @GetMapping("/students/{id}/{firstName}")
-    public Student getStudentByIdAndFirstName(@PathVariable("id") Long id, @PathVariable("firstName") String firstName) {
-        return studentService.findStudentByIdAndFirstName(id, firstName);
+    public ResponseEntity<Student> getStudentByIdAndFirstName(@PathVariable("id") Long id, @PathVariable("firstName") String firstName) {
+        Student student = studentService.findStudentByIdAndFirstName(id, firstName);
+        return ResponseEntity.ok().body(student);
     }
 
+    //
     @PostMapping("/addStudent")
-    public RequestResponse createStudent(@RequestBody Student student) {
+    public ResponseEntity<Student> createStudent(@RequestBody Student student) {
         Student s = studentService.addStudent(student);
-
-        RequestResponse requestResponse = new RequestResponse();
-        requestResponse.setStatus(201);
-        requestResponse.setMessage("Successfully added new student.");
-        requestResponse.setStudent(s);
-
-        return requestResponse;
-
+        return ResponseEntity.ok().body(s);
     }
 
     @PutMapping("/updateStudent/{id}")
-    public String updateStudent(@PathVariable Long id, @RequestBody Student student){
-        return studentService.updateStudent(id, student);
-
+    public ResponseEntity<String> updateStudent(@PathVariable Long id, @RequestBody Student student) {
+        String student1 = studentService.updateStudent(id, student);
+        return ResponseEntity.ok("Student updated successfully.");
     }
 
     @DeleteMapping("/deleteStudent/{id}")
-    public String deleteStudent(@PathVariable Long id){
-        return studentService.deleteStudent(id);
+    public ResponseEntity<String> deleteStudent(@PathVariable Long id) {
+        String studentDeleted = studentService.deleteStudent(id);
+        return ResponseEntity.ok("Student deleted successfully.");
     }
 
 }
