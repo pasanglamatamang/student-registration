@@ -42,7 +42,16 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student addStudent(Student student) {
-        return studentRepository.save(student);
+        String email = student.getEmail();
+        try {
+            if (!studentRepository.findStudentByEmail(email).isPresent()) {
+                return studentRepository.save(student);
+            }
+        }
+         catch(Error e) {
+             System.out.println("Email already in the system " + e);
+         }
+        return null;
     }
 
     @Override
