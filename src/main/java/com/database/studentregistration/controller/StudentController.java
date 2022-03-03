@@ -4,6 +4,7 @@ package com.database.studentregistration.controller;
 import com.database.studentregistration.services.StudentService;
 import com.database.studentregistration.students.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,8 @@ public class StudentController {
     @GetMapping("/students")
     public ResponseEntity<List<Student>> getAllStudents() {
         List<Student> allStudents = studentService.findAll();
-        return ResponseEntity.ok().body(allStudents);
+//        return ResponseEntity.ok().body(allStudents);
+        return new ResponseEntity<>(allStudents, HttpStatus.OK);
     }
 
     //gets specific student by id
@@ -42,7 +44,7 @@ public class StudentController {
 
     // get student by email
     @GetMapping("/student/{email}")
-    public ResponseEntity<Optional<Student>> getByEmail(@PathVariable String email){
+    public ResponseEntity<Optional<Student>> getByEmail(@PathVariable String email) {
         Optional<Student> student = studentService.findStudentByEmail(email);
         return ResponseEntity.ok().body(student);
     }
@@ -56,7 +58,7 @@ public class StudentController {
 
     //add a list of students
     @PostMapping("/addStudents")
-    public ResponseEntity<Student> addListOfStudents(@RequestBody List<Student> addStudents){
+    public ResponseEntity<Student> addListOfStudents(@RequestBody List<Student> addStudents) {
         Student student = studentService.addListOfStudents(addStudents);
         return ResponseEntity.ok().body(student);
     }
