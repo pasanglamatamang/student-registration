@@ -53,10 +53,10 @@ public class StudentController {
     @PostMapping("/addStudent")
     public ResponseEntity<Student> createStudent(@RequestBody Student student) {
         Student s = studentService.addStudent(student);
-        if (s == null) {
-            return new ResponseEntity<>(s, HttpStatus.BAD_REQUEST);
+        if (s != null) {
+            return ResponseEntity.ok().body(s);
         }
-        return ResponseEntity.ok().body(s);
+        return new ResponseEntity<>(s, HttpStatus.BAD_REQUEST);
     }
 
     //add a list of students
