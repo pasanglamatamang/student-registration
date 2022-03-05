@@ -11,7 +11,7 @@ public interface StudentService {
     List<Student> findAll();
 
 
-    Student addStudent(Student student);
+    Student addStudent(Student student) throws Exception;
 
 
     Optional<Student> findStudentById(Long id);

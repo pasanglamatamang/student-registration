@@ -2,6 +2,7 @@ package com.database.studentregistration.services;
 
 import com.database.studentregistration.repository.StudentRepository;
 import com.database.studentregistration.students.Student;
+import com.database.studentregistration.util.DuplicateEmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,22 +42,24 @@ public class StudentServiceImpl implements StudentService {
 
 
     @Override
-    public Student addStudent(Student student) {
-        String email = student.getEmail();
-        try {
-            if (!studentRepository.findStudentByEmail(email).isPresent()) {
-                return studentRepository.save(student);
-            }
+    public Student addStudent(Student student) throws Exception {
+        if (!isEmailExists(student.getEmail())) {
+            return studentRepository.save(student);
         }
-         catch(Error e) {
-             System.out.println("Email already in the system " + e);
-         }
         return null;
+    }
+
+    private boolean isEmailExists(String email) throws Exception {
+        if (studentRepository.findStudentByEmail(email).isPresent()) {
+            throw new DuplicateEmailException("This email is already registered.Please enter another email");
+        }
+        return false;
+
     }
 
     @Override
     public String updateStudent(Long id, Student student) {
-        if(studentRepository.findById(id).isPresent()){
+        if (studentRepository.findById(id).isPresent()) {
             studentRepository.save(student);
         }
 
@@ -65,7 +68,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public String deleteStudent(Long id) {
-        if(studentRepository.findById(id).isPresent()){
+        if (studentRepository.findById(id).isPresent()) {
             studentRepository.deleteById(id);
         }
         return null;
@@ -79,8 +82,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Optional<Student> findStudentByEmail(String email) {
-        Optional <Student> student = studentRepository.findStudentByEmail(email);
-        if(student.isPresent()){
+        Optional<Student> student = studentRepository.findStudentByEmail(email);
+        if (student.isPresent()) {
             return student;
         }
         return null;
