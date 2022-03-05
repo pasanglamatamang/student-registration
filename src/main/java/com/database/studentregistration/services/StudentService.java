@@ -21,7 +21,7 @@ public interface StudentService {
 
     String updateStudent(Long id, Student student);
 
-    String deleteStudent(Long id);
+    String deleteStudent(Long id) throws Exception;
 
 
     Student addListOfStudents(List<Student> addStudents);

@@ -70,7 +70,7 @@ public class StudentController {
     }
 
     @DeleteMapping("/deleteStudent/{id}")
-    public ResponseEntity<String> deleteStudent(@PathVariable Long id) {
+    public ResponseEntity<String> deleteStudent(@PathVariable Long id) throws Exception {
         studentService.deleteStudent(id);
         return ResponseEntity.ok("Student deleted successfully.");
     }

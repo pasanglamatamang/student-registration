@@ -79,9 +79,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public String deleteStudent(Long id) {
+    public String deleteStudent(Long id) throws Exception {
         if (studentRepository.findById(id).isPresent()) {
             studentRepository.deleteById(id);
+        }else {
+            throw new StudentNotFoundException("Student with the id: " + id + " cannot be found and deleted.");
         }
         return null;
     }
