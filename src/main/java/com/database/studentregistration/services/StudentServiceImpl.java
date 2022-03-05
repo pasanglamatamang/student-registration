@@ -3,6 +3,7 @@ package com.database.studentregistration.services;
 import com.database.studentregistration.repository.StudentRepository;
 import com.database.studentregistration.students.Student;
 import com.database.studentregistration.util.DuplicateEmailException;
+import com.database.studentregistration.util.StudentNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +22,19 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Optional<Student> findStudentById(Long id) {
-        return studentRepository.findById(id);
+    public Optional<Student> findStudentById(Long id) throws Exception {
+        if(isStudentExists(id)){
+            studentRepository.findById(id);
+        }
+        return null;
+    }
+
+    private boolean isStudentExists(Long id) throws Exception {
+        if (!studentRepository.findById(id).isPresent()) {
+            throw new StudentNotFoundException("We can not find the student with id: " + id + ". Please, search again.");
+        }
+        return false;
+
     }
 
     @Override
@@ -51,7 +63,7 @@ public class StudentServiceImpl implements StudentService {
 
     private boolean isEmailExists(String email) throws Exception {
         if (studentRepository.findStudentByEmail(email).isPresent()) {
-            throw new DuplicateEmailException("This email is already registered.Please enter another email");
+            throw new DuplicateEmailException("This email is already registered. Please enter another email");
         }
         return false;
 

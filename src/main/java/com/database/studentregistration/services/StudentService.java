@@ -14,7 +14,7 @@ public interface StudentService {
     Student addStudent(Student student) throws Exception;
 
 
-    Optional<Student> findStudentById(Long id);
+    Optional<Student> findStudentById(Long id) throws Exception;
 
 
     Student findStudentByIdAndFirstName(Long id, String firstName);

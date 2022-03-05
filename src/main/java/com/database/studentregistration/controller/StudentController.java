@@ -30,7 +30,7 @@ public class StudentController {
 
     //gets specific student by id
     @GetMapping("/students/{id}")
-    public ResponseEntity<Optional<Student>> getStudentById(@PathVariable Long id) {
+    public ResponseEntity<Optional<Student>> getStudentById(@PathVariable Long id) throws Exception {
         Optional<Student> student = studentService.findStudentById(id);
         return ResponseEntity.ok().body(student);
     }
