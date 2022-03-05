@@ -89,8 +89,16 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student addListOfStudents(List<Student> addStudents) {
-        studentRepository.saveAll(addStudents);
+    public Student addListOfStudents(List<Student> addStudents) throws Exception {
+        for (int i = 0; i < addStudents.size()  ; i++) {
+            Student student = new Student();
+            String email = student.getEmail();
+            if(!isEmailExists(email)){
+                studentRepository.saveAll(addStudents);
+            }else {
+                throw new DuplicateEmailException("This email:" + email + " is already registered. Please enter another email");
+            }
+        }
         return null;
     }
 

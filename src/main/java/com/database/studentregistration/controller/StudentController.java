@@ -58,7 +58,7 @@ public class StudentController {
 
     //add a list of students
     @PostMapping("/addStudents")
-    public ResponseEntity<Student> addListOfStudents(@RequestBody List<Student> addStudents) {
+    public ResponseEntity<Student> addListOfStudents(@RequestBody List<Student> addStudents) throws Exception {
         Student student = studentService.addListOfStudents(addStudents);
         return ResponseEntity.ok().body(student);
     }

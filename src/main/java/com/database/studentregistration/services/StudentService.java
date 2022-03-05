@@ -24,7 +24,7 @@ public interface StudentService {
     String deleteStudent(Long id) throws Exception;
 
 
-    Student addListOfStudents(List<Student> addStudents);
+    Student addListOfStudents(List<Student> addStudents) throws Exception;
 
     Optional<Student> findStudentByEmail(String email);
 }
