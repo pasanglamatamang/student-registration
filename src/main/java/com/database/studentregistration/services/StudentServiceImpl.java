@@ -90,15 +90,29 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student addListOfStudents(List<Student> addStudents) throws Exception {
-        for (int i = 0; i < addStudents.size()  ; i++) {
-            Student student = new Student();
-            String email = student.getEmail();
-            if(!isEmailExists(email)){
-                studentRepository.saveAll(addStudents);
+       /*for(Student student : addStudents){
+           if (isEmailExists(student.getEmail())){
+               throw new DuplicateEmailException("duplicate  email found");
+           }
+       }
+       studentRepository.saveAll(addStudents);*/
+/*        for(Student student : addStudents ){
+            if(!findStudentByEmail(student.getEmail()).isPresent()){
+                studentRepository.save(student);
             }else {
-                throw new DuplicateEmailException("This email:" + email + " is already registered. Please enter another email");
+                throw new DuplicateEmailException("This email: " + student.getEmail() + " is already registered. Please enter another email");
             }
-        }
+        }*/
+        addStudents.stream().parallel().forEach(student -> {
+            try {
+                if (findStudentByEmail(student.getEmail()).isPresent()){
+                    throw new DuplicateEmailException("This email: " + student.getEmail() + " is already registered. Please enter another email.");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            studentRepository.save(student);
+        });
         return null;
     }
 
