@@ -25,19 +25,20 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Optional<Student> findStudentById(Long id) throws Exception {
-        if (isStudentExists(id)) {
-            studentRepository.findById(id);
+        if (studentRepository.findById(id).isPresent()) {
+            return studentRepository.findById(id);
+        }else {
+            throw new StudentNotFoundException("Student with id: " + id + " not found.");
         }
-        return null;
     }
 
-    private boolean isStudentExists(Long id) throws Exception {
+/*    private boolean isStudentExists(Long id) throws Exception {
         if (!studentRepository.findById(id).isPresent()) {
             throw new StudentNotFoundException("We can not find the student with id: " + id + ". Please, search again.");
         }
         return false;
 
-    }
+    }*/
 
     @Override
     public Student findStudentByIdAndFirstName(Long id, String firstName) {
