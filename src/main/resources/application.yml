@@ -13,3 +13,6 @@ spring:
                 dialect: org.hibernate.dialect.MySQL5InnoDBDialect
                 format_sql: true
         show-sql: true
+    mvc:
+        pathmatch:
+            matching-strategy: ant_path_matcher    #added pathmatch to solve the swagger2 3.0.0 version issue "Failed to start bean 'documentationPluginsBootstrapper'"
