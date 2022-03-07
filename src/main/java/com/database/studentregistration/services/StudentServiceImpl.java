@@ -135,5 +135,12 @@ public class StudentServiceImpl implements StudentService {
 
     }
 
+    @Override
+    public List<Student> studentMarksBelow(int marks){
+        List<Student> studentList = studentRepository.findAll().stream().filter(student -> student.getMarks() < marks).collect(Collectors.toList());
+        return studentList;
+
+    }
+
 
 }

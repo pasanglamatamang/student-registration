@@ -31,4 +31,6 @@ public interface StudentService {
 
 
     List<Student> studentMarksAbove(int marks);
+
+    List<Student> studentMarksBelow(int marks);
 }

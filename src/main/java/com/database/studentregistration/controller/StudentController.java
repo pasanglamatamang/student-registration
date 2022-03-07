@@ -51,9 +51,15 @@ public class StudentController {
     }
 
     //get students with marks above the input number
-    @GetMapping("/students/marks/{marks}")
+    @GetMapping("/students/marks/>{marks}")
     public List<Student> showStudentsMarksAbove(@PathVariable int marks){
         return studentService.studentMarksAbove(marks);
+    }
+
+    //get students with marks below the input number
+    @GetMapping("/students/marks/<{marks}")
+    public List<Student> showStudentsMarksBelow(@PathVariable int marks){
+        return studentService.studentMarksBelow(marks);
     }
 
     //add a student
