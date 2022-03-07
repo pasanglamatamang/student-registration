@@ -1,0 +1,392 @@
+{
+	"info": {
+		"_postman_id": "ae4b4311-3096-4ec1-85ac-f0e1fb0ecca9",
+		"name": "Student Registration Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Students",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:444/api/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "444",
+					"path": [
+						"api",
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Student by Id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:444/api/student/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "444",
+					"path": [
+						"api",
+						"student",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Student by email",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:444/api/student/jagdish@email.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "444",
+					"path": [
+						"api",
+						"student",
+						"jagdish@email.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Student by Id & Name",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:444/api/students/2/hari",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "444",
+					"path": [
+						"api",
+						"students",
+						"2",
+						"hari"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get student above the marks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:444/api/students/marks/80",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "444",
+					"path": [
+						"api",
+						"students",
+						"marks",
+						"80"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get student below the marks Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:444/api/students/marks/80",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "444",
+					"path": [
+						"api",
+						"students",
+						"marks",
+						"80"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Students by CSV file",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"{{firstName}}\",\n    \"lastName\": \"{{lastName}}\",\n    \"email\": \"{{email}}\",\n    \"dob\": \"{{dob}}\" \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:444/api/addStudent",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "444",
+					"path": [
+						"api",
+						"addStudent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Students List",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"firstName\": \"Jagdish\",\n        \"lastName\": \"Rana\",\n        \"email\": \"jagdish@email.com\",\n        \"dob\": \"1992-10-10T00:00:00.000+00:00\"\n    },\n    {\n        \"firstName\": \"Sally\",\n        \"lastName\": \"Fally\",\n        \"email\": \"sally@email.com\",\n        \"dob\": \"2000-01-01T00:00:00.000+00:00\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:444/api/addStudents",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "444",
+					"path": [
+						"api",
+						"addStudents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a Student",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"firstName\": \"Jagdish\",\n        \"lastName\": \"Rana\",\n        \"email\": \"jagdish@email.com\",\n        \"dob\": \"1992-10-10T00:00:00.000+00:00\"\n    },\n    {\n        \"firstName\": \"Sally\",\n        \"lastName\": \"Fally\",\n        \"email\": \"sally@email.com\",\n        \"dob\": \"2000-01-01T00:00:00.000+00:00\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:444/api/addStudent",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "444",
+					"path": [
+						"api",
+						"addStudent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update student",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 2,\n    \"firstName\": \"Harry\",\n    \"lastName\": \"Pora\",\n    \"email\": \"harrypora@email.com\",\n    \"dob\": \"2000-01-01T00:00:00.000+00:00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:444/api/updateStudent/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "444",
+					"path": [
+						"api",
+						"updateStudent",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Student By Id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:444/api/students/13",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "444",
+					"path": [
+						"api",
+						"students",
+						"13"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "firstName",
+			"value": "TestFirstName",
+			"type": "string"
+		},
+		{
+			"key": "lastName",
+			"value": "TestLastName",
+			"type": "string"
+		},
+		{
+			"key": "email",
+			"value": "TestEmail",
+			"type": "string"
+		},
+		{
+			"key": "dob",
+			"value": "2000-01-01",
+			"type": "string"
+		}
+	]
+}
