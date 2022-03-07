@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/api")
@@ -47,6 +48,12 @@ public class StudentController {
     public ResponseEntity<Optional<Student>> getByEmail(@PathVariable String email) {
         Optional<Student> student = studentService.findStudentByEmail(email);
         return ResponseEntity.ok().body(student);
+    }
+
+    //get students with marks above the input number
+    @GetMapping("/students/marks/{marks}")
+    public List<Student> showStudentsMarksAbove(@PathVariable int marks){
+        return studentService.studentMarksAbove(marks);
     }
 
     //add a student

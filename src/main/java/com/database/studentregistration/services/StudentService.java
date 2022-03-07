@@ -4,6 +4,7 @@ import com.database.studentregistration.students.Student;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public interface StudentService {
 
@@ -27,4 +28,7 @@ public interface StudentService {
     Student addListOfStudents(List<Student> addStudents) throws Exception;
 
     Optional<Student> findStudentByEmail(String email);
+
+
+    List<Student> studentMarksAbove(int marks);
 }

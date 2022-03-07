@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -23,7 +25,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Optional<Student> findStudentById(Long id) throws Exception {
-        if(isStudentExists(id)){
+        if (isStudentExists(id)) {
             studentRepository.findById(id);
         }
         return null;
@@ -82,7 +84,7 @@ public class StudentServiceImpl implements StudentService {
     public String deleteStudent(Long id) throws Exception {
         if (studentRepository.findById(id).isPresent()) {
             studentRepository.deleteById(id);
-        }else {
+        } else {
             throw new StudentNotFoundException("Student with the id: " + id + " cannot be found and deleted.");
         }
         return null;
@@ -105,7 +107,7 @@ public class StudentServiceImpl implements StudentService {
         }*/
         addStudents.stream().parallel().forEach(student -> {
             try {
-                if (findStudentByEmail(student.getEmail()).isPresent()){
+                if (findStudentByEmail(student.getEmail()).isPresent()) {
                     throw new DuplicateEmailException("This email: " + student.getEmail() + " is already registered. Please enter another email.");
                 }
             } catch (Exception e) {
@@ -123,6 +125,14 @@ public class StudentServiceImpl implements StudentService {
             return student;
         }
         return null;
+    }
+
+    @Override
+    public List<Student> studentMarksAbove(int marks){
+        List<Student> allStudent = studentRepository.findAll();
+        List<Student> studentList = allStudent.stream().filter(student -> student.getMarks() > marks).collect(Collectors.toList());
+        return studentList;
+
     }
 
 
