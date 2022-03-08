@@ -24,24 +24,28 @@ public class Student {
     @Column(name = "date_of_birth")
     private Date dob;
 
+    @Column(name = "marks")
+    private int marks;
 
 
     public Student() {
     }
 
-    public Student(String firstName, String lastName, String email, Date dob) {
+    public Student(String firstName, String lastName, String email, Date dob, int marks) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.dob = dob;
+        this.marks = marks;
     }
 
-    public Student(Long id, String firstName, String lastName, String email, Date dob) {
+    public Student(Long id, String firstName, String lastName, String email, Date dob, int marks) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.dob = dob;
+        this.marks = marks;
     }
 
     public Long getId() {
@@ -84,6 +88,14 @@ public class Student {
         this.dob = dob;
     }
 
+    public int getMarks() {
+        return marks;
+    }
+
+    public void setMarks(int marks) {
+        this.marks = marks;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -92,6 +104,7 @@ public class Student {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", dob=" + dob +
+                ", marks=" + marks +
                 '}';
     }
 }

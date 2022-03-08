@@ -1,0 +1,18 @@
+server:
+    port: 444
+spring:
+    datasource:
+        password: pasang123
+        url: jdbc:mysql://localhost:3306/student_registration?createDatabaseIfNotExist=true
+        username: root
+    jpa:
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+                format_sql: true
+        show-sql: true
+    mvc:
+        pathmatch:
+            matching-strategy: ant_path_matcher    #added pathmatch to solve the swagger2 3.0.0 version issue "Failed to start bean 'documentationPluginsBootstrapper'"

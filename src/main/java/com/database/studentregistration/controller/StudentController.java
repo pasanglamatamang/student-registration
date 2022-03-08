@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/api")
@@ -30,7 +31,7 @@ public class StudentController {
 
     //gets specific student by id
     @GetMapping("/students/{id}")
-    public ResponseEntity<Optional<Student>> getStudentById(@PathVariable Long id) {
+    public ResponseEntity<Optional<Student>> getStudentById(@PathVariable Long id) throws Exception {
         Optional<Student> student = studentService.findStudentById(id);
         return ResponseEntity.ok().body(student);
     }
@@ -49,6 +50,18 @@ public class StudentController {
         return ResponseEntity.ok().body(student);
     }
 
+    //get students with marks above the input number
+    @GetMapping("/students/marks/>{marks}")
+    public List<Student> showStudentsMarksAbove(@PathVariable int marks){
+        return studentService.studentMarksAbove(marks);
+    }
+
+    //get students with marks below the input number
+    @GetMapping("/students/marks/<{marks}")
+    public List<Student> showStudentsMarksBelow(@PathVariable int marks){
+        return studentService.studentMarksBelow(marks);
+    }
+
     //add a student
     @PostMapping("/addStudent")
     public ResponseEntity<Student> createStudent(@RequestBody Student student) throws Exception {
@@ -58,7 +71,7 @@ public class StudentController {
 
     //add a list of students
     @PostMapping("/addStudents")
-    public ResponseEntity<Student> addListOfStudents(@RequestBody List<Student> addStudents) {
+    public ResponseEntity<Student> addListOfStudents(@RequestBody List<Student> addStudents) throws Exception {
         Student student = studentService.addListOfStudents(addStudents);
         return ResponseEntity.ok().body(student);
     }
@@ -70,7 +83,7 @@ public class StudentController {
     }
 
     @DeleteMapping("/deleteStudent/{id}")
-    public ResponseEntity<String> deleteStudent(@PathVariable Long id) {
+    public ResponseEntity<String> deleteStudent(@PathVariable Long id) throws Exception {
         studentService.deleteStudent(id);
         return ResponseEntity.ok("Student deleted successfully.");
     }

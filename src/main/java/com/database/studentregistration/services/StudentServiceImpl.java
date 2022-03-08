@@ -3,11 +3,14 @@ package com.database.studentregistration.services;
 import com.database.studentregistration.repository.StudentRepository;
 import com.database.studentregistration.students.Student;
 import com.database.studentregistration.util.DuplicateEmailException;
+import com.database.studentregistration.util.StudentNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -21,9 +24,21 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Optional<Student> findStudentById(Long id) {
-        return studentRepository.findById(id);
+    public Optional<Student> findStudentById(Long id) throws Exception {
+        if (studentRepository.findById(id).isPresent()) {
+            return studentRepository.findById(id);
+        }else {
+            throw new StudentNotFoundException("Student with id: " + id + " not found.");
+        }
     }
+
+/*    private boolean isStudentExists(Long id) throws Exception {
+        if (!studentRepository.findById(id).isPresent()) {
+            throw new StudentNotFoundException("We can not find the student with id: " + id + ". Please, search again.");
+        }
+        return false;
+
+    }*/
 
     @Override
     public Student findStudentByIdAndFirstName(Long id, String firstName) {
@@ -50,7 +65,7 @@ public class StudentServiceImpl implements StudentService {
 
     private boolean isEmailExists(String email) throws Exception {
         if (studentRepository.findStudentByEmail(email).isPresent()) {
-            throw new DuplicateEmailException("This email is already registered.Please enter another email");
+            throw new DuplicateEmailException("This email is already registered. Please enter another email");
         }
         return false;
 
@@ -66,16 +81,40 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public String deleteStudent(Long id) {
+    public String deleteStudent(Long id) throws Exception {
         if (studentRepository.findById(id).isPresent()) {
             studentRepository.deleteById(id);
+        } else {
+            throw new StudentNotFoundException("Student with the id: " + id + " cannot be found and deleted.");
         }
         return null;
     }
 
     @Override
-    public Student addListOfStudents(List<Student> addStudents) {
-        studentRepository.saveAll(addStudents);
+    public Student addListOfStudents(List<Student> addStudents) throws Exception {
+       /*for(Student student : addStudents){
+           if (isEmailExists(student.getEmail())){
+               throw new DuplicateEmailException("duplicate  email found");
+           }
+       }
+       studentRepository.saveAll(addStudents);*/
+/*        for(Student student : addStudents ){
+            if(!findStudentByEmail(student.getEmail()).isPresent()){
+                studentRepository.save(student);
+            }else {
+                throw new DuplicateEmailException("This email: " + student.getEmail() + " is already registered. Please enter another email");
+            }
+        }*/
+        addStudents.stream().parallel().forEach(student -> {
+            try {
+                if (findStudentByEmail(student.getEmail()).isPresent()) {
+                    throw new DuplicateEmailException("This email: " + student.getEmail() + " is already registered. Please enter another email.");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            studentRepository.save(student);
+        });
         return null;
     }
 
@@ -86,6 +125,21 @@ public class StudentServiceImpl implements StudentService {
             return student;
         }
         return null;
+    }
+
+    @Override
+    public List<Student> studentMarksAbove(int marks){
+        List<Student> allStudent = studentRepository.findAll();
+        List<Student> studentList = allStudent.stream().filter(student -> student.getMarks() > marks).collect(Collectors.toList());
+        return studentList;
+
+    }
+
+    @Override
+    public List<Student> studentMarksBelow(int marks){
+        List<Student> studentList = studentRepository.findAll().stream().filter(student -> student.getMarks() < marks).collect(Collectors.toList());
+        return studentList;
+
     }
 
 
