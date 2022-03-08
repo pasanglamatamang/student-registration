@@ -2,6 +2,7 @@ package com.database.studentregistration.controller;
 
 import com.database.studentregistration.services.StudentService;
 import com.database.studentregistration.students.Student;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,6 +49,7 @@ public class StudentController {
     }
 
     //get students with marks above the input number
+    @ApiOperation(value = "get students with marks above the given number and takes integer value", produces = "list of students")
     @GetMapping("/students/marks/>{marks}")
     public List<Student> showStudentsMarksAbove(@PathVariable int marks) {
         return studentService.studentMarksAbove(marks);
