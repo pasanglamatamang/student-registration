@@ -40,7 +40,6 @@ public class StudentServiceImpl implements StudentService {
         return null;
     }
 
-
     @Override
     public Student addStudent(Student student) throws Exception {
         if (!isEmailExists(student.getEmail())) {
