@@ -1,6 +1,5 @@
 package com.database.studentregistration.controller;
 
-
 import com.database.studentregistration.services.StudentService;
 import com.database.studentregistration.students.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/api")
@@ -51,13 +49,13 @@ public class StudentController {
 
     //get students with marks above the input number
     @GetMapping("/students/marks/>{marks}")
-    public List<Student> showStudentsMarksAbove(@PathVariable int marks){
+    public List<Student> showStudentsMarksAbove(@PathVariable int marks) {
         return studentService.studentMarksAbove(marks);
     }
 
     //get students with marks below the input number
     @GetMapping("/students/marks/<{marks}")
-    public List<Student> showStudentsMarksBelow(@PathVariable int marks){
+    public List<Student> showStudentsMarksBelow(@PathVariable int marks) {
         return studentService.studentMarksBelow(marks);
     }
 

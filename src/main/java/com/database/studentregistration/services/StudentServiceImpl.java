@@ -42,17 +42,17 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student findStudentByIdAndFirstName(Long id, String firstName) {
-        Optional<Student> findStudent = studentRepository.findByIdAndFirstName(id, firstName);
+        return studentRepository.findByIdAndFirstName(id, firstName).get();
 
-        if (findStudent.isPresent()) {
-            Student student = findStudent.get();
-            System.out.println("Student found: " + student);
-            return student;
-        } else {
-            System.out.println("student not found");
-        }
-
-        return null;
+//        if (findStudent.isPresent()) {
+//            Student student = findStudent.get();
+//            System.out.println("Student found: " + student);
+//            return student;
+//        } else {
+//            System.out.println("student not found");
+//        }
+//
+//        return null;
     }
 
     @Override
@@ -129,16 +129,16 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> studentMarksAbove(int marks){
-        List<Student> allStudent = studentRepository.findAll();
-        List<Student> studentList = allStudent.stream().filter(student -> student.getMarks() > marks).collect(Collectors.toList());
-        return studentList;
+//        List<Student> allStudent = studentRepository.findAll();
+        return studentRepository.findAll().stream().filter(student -> student.getMarks() > marks).collect(Collectors.toList());
+//        return studentList;
 
     }
 
     @Override
     public List<Student> studentMarksBelow(int marks){
-        List<Student> studentList = studentRepository.findAll().stream().filter(student -> student.getMarks() < marks).collect(Collectors.toList());
-        return studentList;
+        return studentRepository.findAll().stream().filter(student -> student.getMarks() < marks).collect(Collectors.toList());
+//        return studentList;
 
     }
 

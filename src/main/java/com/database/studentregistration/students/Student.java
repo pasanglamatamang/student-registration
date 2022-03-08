@@ -5,7 +5,6 @@ import java.util.Date;
 
 @Entity
 @Table(name = "student_registration_table")
-
 public class Student {
 
     @Id
