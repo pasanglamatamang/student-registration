@@ -48,6 +48,7 @@ public class StudentController {
         return ResponseEntity.ok().body(student);
     }
 
+    /*
     //get students with marks above the input number
     @ApiOperation(value = "get students with marks above the given number and takes integer value", produces = "list of students")
     @GetMapping("/students/marks/>{marks}")
@@ -59,7 +60,7 @@ public class StudentController {
     @GetMapping("/students/marks/<{marks}")
     public List<Student> showStudentsMarksBelow(@PathVariable int marks) {
         return studentService.studentMarksBelow(marks);
-    }
+    }*/
 
     //add a student
     @PostMapping("/addStudent")
