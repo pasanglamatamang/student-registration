@@ -23,25 +23,29 @@ public class Student {
     @Column(name = "date_of_birth")
     private Date dob;
 
+    @Column(name = "password")
+    private String password;
+
 
 
     public Student() {
     }
 
-    public Student(String firstName, String lastName, String email, Date dob) {
+    public Student(String firstName, String lastName, String email, Date dob, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.dob = dob;
+        this.password = password;
     }
 
-    public Student(Long id, String firstName, String lastName, String email, Date dob) {
+    public Student(Long id, String firstName, String lastName, String email, Date dob, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.dob = dob;
-
+        this.password = password;
     }
 
     public Long getId() {
@@ -84,6 +88,13 @@ public class Student {
         this.dob = dob;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     @Override
     public String toString() {
@@ -93,6 +104,7 @@ public class Student {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", dob=" + dob +
+                ", password='" + password + '\'' +
                 '}';
     }
 }
