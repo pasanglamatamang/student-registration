@@ -23,7 +23,7 @@ public class Student {
     @Column(name = "date_of_birth")
     private Date dob;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
 
