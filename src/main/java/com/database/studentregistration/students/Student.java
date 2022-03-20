@@ -1,5 +1,6 @@
 package com.database.studentregistration.students;
 
+import com.database.studentregistration.util.PasswordEncoder;
 import lombok.AccessLevel;
 import lombok.Setter;
 
@@ -106,7 +107,7 @@ public class Student {
     }
 
     public void setPassword(String password) {
-        this.password = password;
-//        this.password = PasswordEncoder.encodePassword(password);
+//        this.password = password;
+        this.password = PasswordEncoder.encodePassword(password);
     }
 }
