@@ -30,7 +30,7 @@ public interface StudentService {
     Optional<Student> findStudentByEmail(String email);
 
 
-    List<Student> studentMarksAbove(int marks);
+/*    List<Student> studentMarksAbove(int marks);
 
-    List<Student> studentMarksBelow(int marks);
+    List<Student> studentMarksBelow(int marks);*/
 }
