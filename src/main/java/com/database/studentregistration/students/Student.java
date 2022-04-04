@@ -1,8 +1,6 @@
 package com.database.studentregistration.students;
 
 import com.database.studentregistration.util.PasswordEncoder;
-import lombok.AccessLevel;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -27,9 +25,6 @@ public class Student {
     @Column(name = "date_of_birth")
     private Date dob;
 
-    @Column(name = "marks")
-    private int marks;
-
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -37,21 +32,19 @@ public class Student {
     public Student() {
     }
 
-    public Student(String firstName, String lastName, String email, Date dob, int marks) {
+    public Student(String firstName, String lastName, String email, Date dob) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.dob = dob;
-        this.marks = marks;
     }
 
-    public Student(Long id, String firstName, String lastName, String email, Date dob, int marks) {
+    public Student(Long id, String firstName, String lastName, String email, Date dob) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.dob = dob;
-        this.marks = marks;
     }
 
     public Long getId() {
@@ -92,14 +85,6 @@ public class Student {
 
     public void setDob(Date dob) {
         this.dob = dob;
-    }
-
-    public int getMarks() {
-        return marks;
-    }
-
-    public void setMarks(int marks) {
-        this.marks = marks;
     }
 
     public String getPassword() {
