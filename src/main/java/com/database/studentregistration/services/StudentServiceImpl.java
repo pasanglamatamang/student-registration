@@ -4,7 +4,11 @@ import com.database.studentregistration.repository.StudentRepository;
 import com.database.studentregistration.students.Student;
 import com.database.studentregistration.util.DuplicateEmailException;
 import com.database.studentregistration.util.StudentNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,11 +16,23 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Service
-public class StudentServiceImpl implements StudentService {
+@Service @Slf4j
+public class StudentServiceImpl implements StudentService, UserDetailsService {
 
     @Autowired
     StudentRepository studentRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Optional<Student> student = studentRepository.findStudentByEmail(email);
+        if(student == null){
+            log.error("student not found in the database");
+            throw new UsernameNotFoundException("User not found in the database");
+        } else {
+            log.info("Student found in the database: {}", email);
+        }
+        return null; // todo: returns user tara idea vayena yo
+    }
 
     @Override
     public List<Student> findAll() {
@@ -25,6 +41,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Optional<Student> findStudentById(Long id) throws Exception {
+        log.info("Fetching student {}", id);
         if (studentRepository.findById(id).isPresent()) {
             return studentRepository.findById(id);
         }else {
@@ -126,6 +143,8 @@ public class StudentServiceImpl implements StudentService {
         }
         return null;
     }
+
+
 
 /*    @Override
     public List<Student> studentMarksAbove(int marks){

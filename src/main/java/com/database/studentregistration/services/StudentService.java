@@ -7,7 +7,6 @@ import java.util.Optional;
 
 public interface StudentService {
 
-
     List<Student> findAll();
 
 
